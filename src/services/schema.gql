@@ -2,49 +2,38 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-"""Collection"""
-type Collection {
-  collectionId: String!
-  description: String
-  name: String!
+"""Family allowance case"""
+type FamilyAllowance {
+  firstName: String!
+  id: ID!
+  lastName: String!
+  status: FamilyAllowanceStatus!
+  type: FamilyAllowanceType!
 }
 
-input CreateCollectionInput {
-  description: String
-  name: String!
+"""Family allowance case statuses"""
+enum FamilyAllowanceStatus {
+  Approved
+  Denied
+  NeedsInfo
+  Pending
 }
 
-"""Document"""
-type Document {
-  documentId: String!
-  filename: String!
-  path: String
-  status: String!
+"""Family allowance case statuses for filtering query"""
+enum FamilyAllowanceStatusFilter {
+  All
+  Approved
+  Denied
+  NeedsInfo
+  Pending
 }
 
-type DocumentDetail {
-  metadata: [DocumentMetadata!]
-  pageContent: String!
-}
-
-type DocumentMetadata {
-  key: String!
-  value: String!
-}
-
-input GenerateInput {
-  collectionId: String
-  decoding_method: String
-  max_new_tokens: Float
-  min_new_tokens: Float
-  modelId: String
-  question: String!
-  repetition_penalty: Float
-}
-
-type GenerateResultGraphql {
-  generatedText: String!
-  question: String!
+"""Family allowance case types"""
+enum FamilyAllowanceType {
+  Adoption
+  Birth
+  ChildAllowance
+  TrainingAllowance
 }
 
 """greeting"""
@@ -52,43 +41,12 @@ type Greeting {
   greeting: String!
 }
 
-"""Collections list"""
-type ListCollections {
-  collections: [Collection!]!
-}
-
-"""Documents list"""
-type ListDocuments {
-  count: Float!
-  documents: [Document!]!
-}
-
-input ListDocumentsInput {
-  collectionId: String
-  count: Float
-  statuses: [String!]
-}
-
 type Mutation {
-  createCollection(input: CreateCollectionInput!): Collection!
+  updateFamilyAllowanceStatus(id: ID!, status: FamilyAllowanceStatus!): FamilyAllowance!
 }
 
 type Query {
-  generate(input: GenerateInput!): GenerateResultGraphql!
+  getFamilyAllowanceCase(id: ID!): FamilyAllowance!
   helloWorld: Greeting!
-  listCollections: ListCollections!
-  listDocuments(input: ListDocumentsInput!): ListDocuments!
-  query(input: QueryDocumentsInput!): QueryDocuments!
-}
-
-type QueryDocuments {
-  count: Float!
-  documents: [DocumentDetail!]!
-}
-
-input QueryDocumentsInput {
-  collectionId: String
-  count: Float
-  filter: String
-  naturalLanguageQuery: String!
+  listFamilyAllowanceCases(status: FamilyAllowanceStatusFilter): [FamilyAllowance!]!
 }
