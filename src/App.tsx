@@ -9,7 +9,7 @@ import './App.css'
 import {activeItemAtom} from "./atoms";
 import {NotFound, UIShell} from "./components";
 import {MenuLinksModel, NavigationModel} from "./models";
-import {QueryView} from "./views";
+import {CaseDetailView, CaseListView} from "./views";
 
 function App() {
     const [activeItem, setActiveItem] = useAtom(activeItemAtom);
@@ -19,7 +19,8 @@ function App() {
     }
 
     const menuLinks: MenuLinksModel[] = [
-        {title: 'Query', href: '/', element: <QueryView />},
+        {title: 'List Cases', href: '/', element: <CaseListView />},
+        {title: 'Show Case', href: '/case/:id', element: <CaseDetailView />},
     ]
 
     const navigation: NavigationModel = {
@@ -55,7 +56,7 @@ function App() {
 
     return (
         <div>
-            <UIShell prefix="watsonx" navigation={navigation} activeItem={activeItem} setActiveItem={setActiveItem}>
+            <UIShell prefix="AK71" navigation={navigation} activeItem={activeItem} setActiveItem={setActiveItem}>
                 <Routes>
                     {renderMenuLinks(menuLinks)}
                     <Route key="route-all" path="*" element={<NotFound />} />

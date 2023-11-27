@@ -1,2 +1,1 @@
-export * from './document-management'
-export * from './generative'
+export * from './family-allowance'
